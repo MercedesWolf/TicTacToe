@@ -12,10 +12,10 @@ public class Main {
          * _____
          * A|A|A
          */
-        Board board = new Board();
+        Board board = new Board(3);
 
-        Player a = new Player(0);
-        Player b = new Player(1);
+        Player a = new Player(0, board);
+        Player b = new Player(1, board);
         Player[] players = new Player[2];
         players[0] = a;
         players[1] = b;

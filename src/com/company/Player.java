@@ -5,10 +5,14 @@ import java.util.Scanner;
 
 public class Player {
     int number;
+
+    Board board;
+
     Scanner scanner = new Scanner(System.in);
 
-    public Player(int number){
+    public Player(int number, Board board){
         this.number = number;
+        this.board = board;
     }
 
     public Position getTurn(){
@@ -23,7 +27,7 @@ public class Player {
     private int getRowOrColumn(String name) {
         int rowOrColumn = -1;
 
-        while (rowOrColumn < 0 || rowOrColumn >= 3) {
+        while (rowOrColumn < 0 || rowOrColumn >= board.boardSize) {
             System.out.print(name);
 
             try {
@@ -33,7 +37,7 @@ public class Player {
                 scanner.next();
             }
 
-            if (rowOrColumn < 0 || rowOrColumn >= 3) {
+            if (rowOrColumn < 0 || rowOrColumn >= board.boardSize) {
                 System.out.println("Ungültige Eingabe.");
             }
         }
