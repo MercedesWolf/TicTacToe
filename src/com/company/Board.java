@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.Arrays;
+
 public class Board {
     // y,x
     int[][] board = new int[3][];
@@ -8,55 +10,63 @@ public class Board {
         for(int i=0; i < board.length; i++){
             board[i] = new int[3];
 
-            for(int j=0; j < board[i].length; j++){
-                // no winner yet = -1
-                board[i][j] = -1;
-            }
+            // no winner yet = -1
+            Arrays.fill(board[i], -1);
         }
     }
 
     public int checkWinner(){
-        int winner;
+        int winner = -1;
 
-        if(board[0][0] == board[0][1] && board[0][0] == board[0][2] && board[0][0] != -1){
-            winner = board[0][0];
-        }
-        else if(board[1][0] == board[1][1] && board[1][0] == board[1][2] && board[1][0] != -1) {
-            winner = board[1][0];
-        }
-        else if(board[2][0] == board[2][2] && board[2][0] == board[2][2] && board[2][0] != -1) {
-            winner = board[2][0];
+        for(int i = 0; i < 3; i++){
+            if(board[i][0] == board[i][1] && board[i][0] == board[i][2] && board[i][0] != -1){
+                winner = board[i][0];
+            }
         }
 
-        else if(board[0][0] == board[1][0] && board[0][0] == board[2][0] && board[0][0] != -1) {
-            winner = board[0][0];
-        }
-        else if(board[0][1] == board[1][1] && board[0][1] == board[2][1] && board[0][1] != -1){
-            winner = board[0][1];
-        }
-        else if(board[0][2] == board[1][2] && board[0][2] == board[2][2] && board[0][2] != -1){
-            winner = board[0][2];
+        for (int i = 0; i < 3; i++){
+            if(board[0][i] == board[1][i] && board[0][i] == board[2][i] && board[0][i] != -1) {
+                winner = board[0][i];
+            }
         }
 
-        else if(board[0][0] == board[1][1] && board[0][0] == board[2][2] && board[0][0] != -1){
-            winner = board[0][0];
-        }
-        else if(board[0][2] == board[1][1] && board[0][2] == board[2][0] && board[0][2] != -1){
-            winner = board[0][2];
+        if (board[0][0] != -1) {
+            boolean isWinner = true;
+            for (int i = 1; i < 3; i++) {
+                if (board[0][0] != board[i][i]) {
+                    isWinner = false;
+                    break;
+                }
+            }
+            if (isWinner) {
+                winner = board[0][0];
+            }
         }
 
-        else {
-            winner = -1;
+        if (board[0][2] != -1) {
+            boolean isWinner = true;
+            for (int i = 1; i < 3; i++) {
+                if (board[0][2] != board[i][2 - i]) {
+                    isWinner = false;
+                    break;
+                }
+            }
+            if (isWinner) {
+                winner = board[0][2];
+            }
         }
+
         return winner;
     }
 
     public void printBoard(){
-        System.out.println(board[0][0] + " | " + board[0][1] + " | " + board[0][2]);
-        System.out.println("____________");
-        System.out.println(board[1][0] + " | " + board[1][1] + " | " + board[1][2]);
-        System.out.println("____________");
-        System.out.println(board[2][0] + " | " + board[2][1] + " | " + board[2][2]);
+        for(int i=0; i < 3; i++){
+            System.out.println(board[i][0] + " | " + board[i][1] + " | " + board[i][2]);
+
+            if(i != 2) {
+                System.out.println("____________");
+            }
+        }
     }
 
     public int getField(Position position){
