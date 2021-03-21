@@ -10,17 +10,36 @@ public class Player {
         this.number = number;
     }
 
-    public int getTurn(){
+    public Position getTurn(){
         System.out.println("Player " + number + " du bist am Zug!");
-        int input = scanner.nextInt();
-        if(input < 9 && input >= 0){
-            return input;
+
+        int y = -1;
+
+        while (y < 0 || y >= 3) {
+            System.out.print("Zeile:");
+            y = scanner.nextInt();
+
+            if (y < 0 || y >= 3) {
+                System.out.println("Ungültige Eingabe.");
+            }
         }
-        System.out.println("Ungültige Eingabe.");
-        return getTurn();
+
+
+        int x = -1;
+
+        while (x < 0 || x >= 3) {
+            System.out.print("Spalte:");
+            x = scanner.nextInt();
+
+            if (x < 0 || x >= 3) {
+                System.out.println("Ungültige Eingabe.");
+            }
+        }
+
+        return new Position(y, x);
     }
 
-    public boolean validateTurn(Board board, int turn){
+    public boolean validateTurn(Board board, Position turn){
         if(board.getField(turn) == -1) {
             return true;
         }

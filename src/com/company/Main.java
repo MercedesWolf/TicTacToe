@@ -22,12 +22,16 @@ public class Main {
 
         while(winner == -1){
             board.printBoard();
-            int turnField = players[turn].getTurn();
-            if(players[turn].validateTurn(board, turnField)){
-                board.setField(turnField, players[turn].number);
+
+            Player currentPlayer = players[turn];
+
+            Position position = currentPlayer.getTurn();
+
+            if(currentPlayer.validateTurn(board, position)){
+                board.setField(position, currentPlayer.number);
+                winner = board.checkWinner();
                 turn = (turn + 1) % 2;
             }
-            winner = board.checkWinner();
         }
 
         System.out.println("Herzlichen Glückwunsch, Spieler " + winner + ". Du hast gewonnen!");

@@ -1,40 +1,50 @@
 package com.company;
 
 public class Board {
-    int[] board = new int[9];
+    // y,x
+    int[][] board = new int[3][];
 
     public Board() {
         for(int i=0; i < board.length; i++){
-            // no winner yet = -1
-            board[i] = -1;
+            board[i] = new int[3];
+
+            for(int j=0; j < board[i].length; j++){
+                // no winner yet = -1
+                board[i][j] = -1;
+            }
         }
     }
 
     public int checkWinner(){
         int winner;
-        if(board[0] == board[1] && board[0] == board[2] && board[0] != -1){
-            winner = board[0];
+
+        if(board[0][0] == board[0][1] && board[0][0] == board[0][2] && board[0][0] != -1){
+            winner = board[0][0];
         }
-        else if(board[3] == board[4] && board[3] == board[5] && board[3] != -1) {
-            winner = board[3];
+        else if(board[1][0] == board[1][1] && board[1][0] == board[1][2] && board[1][0] != -1) {
+            winner = board[1][0];
         }
-        else if(board[6] == board[7] && board[6] == board[8] && board[6] != -1){
-            winner = board[6];
+        else if(board[2][0] == board[2][2] && board[2][0] == board[2][2] && board[2][0] != -1) {
+            winner = board[2][0];
         }
-        else if(board[0] == board[4] && board[0] == board[8] && board[0] != -1){
-            winner = board[0];
-        }else if(board[2] == board[4] && board[6] == board[2] && board[2] != -1){
-            winner = board[2];
+
+        else if(board[0][0] == board[1][0] && board[0][0] == board[2][0] && board[0][0] != -1) {
+            winner = board[0][0];
         }
-        else if(board[0] == board[3] && board[0] == board[6] && board[0] != -1){
-            winner = board[0];
+        else if(board[0][1] == board[1][1] && board[0][1] == board[2][1] && board[0][1] != -1){
+            winner = board[0][1];
         }
-        else if(board[1] == board[4] && board[1] == board[7] && board[1] != -1){
-            winner = board[1];
+        else if(board[0][2] == board[1][2] && board[0][2] == board[2][2] && board[0][2] != -1){
+            winner = board[0][2];
         }
-        else if(board[2] == board[5] && board[2] == board[8] && board[2] != -1){
-            winner = board[2];
+
+        else if(board[0][0] == board[1][1] && board[0][0] == board[2][2] && board[0][0] != -1){
+            winner = board[0][0];
         }
+        else if(board[0][2] == board[1][1] && board[0][2] == board[2][0] && board[0][2] != -1){
+            winner = board[0][2];
+        }
+
         else {
             winner = -1;
         }
@@ -42,17 +52,18 @@ public class Board {
     }
 
     public void printBoard(){
-        System.out.println(board[0] + " | " + board[1] + " | " + board[2]);
+        System.out.println(board[0][0] + " | " + board[0][1] + " | " + board[0][2]);
         System.out.println("____________");
-        System.out.println(board[3] + " | " + board[4] + " | " + board[5]);
+        System.out.println(board[1][0] + " | " + board[1][1] + " | " + board[1][2]);
         System.out.println("____________");
-        System.out.println(board[6] + " | " + board[7] + " | " + board[8]);
+        System.out.println(board[2][0] + " | " + board[2][1] + " | " + board[2][2]);
     }
 
-    public int getField(int num){
-        return board[num];
+    public int getField(Position position){
+        return board[position.y][position.x];
     }
-    public void setField(int num, int value){
-        board[num] = value;
+
+    public void setField(Position position, int value){
+        board[position.y][position.x] = value;
     }
 }
