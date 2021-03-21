@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Player {
@@ -18,8 +19,8 @@ public class Player {
     public Position getTurn(){
         System.out.println("Player " + number + " du bist am Zug!");
 
-        int y = getRowOrColumn("Zeile:");
-        int x = getRowOrColumn("Spalte:");
+        int y = getRowOrColumn("Zeile: ");
+        int x = getRowOrColumn("Spalte: ");
 
         return new Position(y, x);
     }
@@ -31,10 +32,12 @@ public class Player {
             System.out.print(name);
 
             try {
-                rowOrColumn = scanner.nextInt();
+                rowOrColumn = scanner.nextInt() - 1;
             } catch(InputMismatchException ignored) {
                 // consume wrong input
                 scanner.next();
+            } catch(NoSuchElementException ignored) { // e.g. ctrl + d
+                System.exit(0);
             }
 
             if (rowOrColumn < 0 || rowOrColumn >= board.boardSize) {

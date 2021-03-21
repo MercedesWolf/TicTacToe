@@ -88,9 +88,14 @@ public class Board {
     }
 
     public void printBoard(){
+        System.out.print("\n");
         for(int i=0; i < boardSize; i++){
             for(int j = 0; j < boardSize; j++) {
-                System.out.print(board[i][j]);
+                if (board[i][j] == -1) {
+                    System.out.print(" ");
+                } else {
+                    System.out.print(board[i][j]);
+                }
 
                 if(j != boardSize - 1){
                     System.out.print(" | ");
@@ -100,7 +105,7 @@ public class Board {
             }
 
             if(i != boardSize - 1) {
-                System.out.println("____________");
+                System.out.println("-".repeat(boardSize + (boardSize - 1) * 3));
             }
         }
     }
