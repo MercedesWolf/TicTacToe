@@ -20,8 +20,8 @@ public class Player {
         return getTurn();
     }
 
-    public boolean validateTurn(int[] board, int turn){
-        if(board[turn] == -1) {
+    public boolean validateTurn(Board board, int turn){
+        if(board.getField(turn) == -1) {
             return true;
         }
         return false;
